@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event Archive</title>
+<style>
+:root{--bg:#14110f;--panel:#1f1a17;--ink:#f1e9dc;--mute:#a2968a;--line:#3a312b;--accent:#e2572b;--paper:#efe4cc;--paper-ink:#2a211a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(20,17,15,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+h1{font:700 20px/1 Georgia,serif;margin:0 8px 0 0;letter-spacing:.02em}
+h1 span{color:var(--accent)}
+input,select,textarea,button{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 11px}
+#q{flex:1;min-width:220px}
+button{cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+#stats{color:var(--mute);font-size:13px;width:100%}
+main{padding:8px 24px 80px;max-width:1400px;margin:0 auto}
+h2.year{font:700 34px/1 Georgia,serif;color:var(--mute);margin:34px 0 14px;border-bottom:1px solid var(--line);padding-bottom:8px}
+h2.year small{font:400 13px -apple-system,sans-serif;margin-left:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.card{cursor:pointer;transition:transform .12s}
+.card:hover{transform:translateY(-3px) rotate(-.4deg)}
+/* generated ticket stub */
+.stub{position:relative;display:flex;background:var(--paper);color:var(--paper-ink);border-radius:6px;min-height:132px;font-family:"Courier New",monospace;overflow:hidden;
+ -webkit-mask:radial-gradient(circle 9px at 76% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 9px at 76% 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.stub .body{flex:1;padding:12px 14px;min-width:0}
+.stub .tear{width:24%;border-left:2px dashed #b9a988;padding:12px 8px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;font-size:11px}
+.stub .artist{font:800 19px/1.1 "Helvetica Neue",sans-serif;text-transform:uppercase;letter-spacing:.01em;overflow-wrap:anywhere}
+.stub .support{font-size:11.5px;margin-top:3px;opacity:.8}
+.stub .venue{margin-top:9px;font-size:12.5px;font-weight:700}
+.stub .meta{font-size:11.5px;opacity:.75}
+.stub .day{font:800 26px/1 "Helvetica Neue",sans-serif}
+.stub .bar{width:100%;height:22px;background:repeating-linear-gradient(90deg,#2a211a 0 2px,#0000 2px 4px,#2a211a 4px 5px,#0000 5px 9px)}
+.stub.k-comedy{--paper:#d9e6d2}.stub.k-theatre{--paper:#e6d6dd}.stub.k-sports{--paper:#d5dfea}.stub.k-festival{--paper:#f0d9a8}.stub.k-kids{--paper:#f3dccf}.stub.k-other{--paper:#dedbd3}
+.review{border:1px solid var(--accent);color:var(--accent);border-radius:99px;padding:1px 9px}
+iframe.receipt{width:100%;height:460px;border:0;border-radius:8px;background:#fff;margin-top:10px}
+.stubimg{width:100%;height:150px;object-fit:cover;border-radius:6px;display:block;background:#000}
+.under{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px;font-size:12px;color:var(--mute);align-items:center}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:1px 9px;color:var(--ink)}
+.thumbs{display:flex;gap:4px;margin-left:auto}
+.thumbs img{width:26px;height:26px;object-fit:cover;border-radius:4px}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:0;width:min(860px,94vw);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+.dlg{padding:22px 24px}
+.dlg h3{font:700 26px/1.1 Georgia,serif;margin:0 0 4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.row label,label.full{display:flex;flex-direction:column;font-size:12px;color:var(--mute);gap:4px}
+label.full{margin-top:10px}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
+.gallery figure{margin:0;position:relative}
+.gallery img{width:100%;height:150px;object-fit:cover;border-radius:8px;display:block}
+.gallery figcaption{font-size:11px;color:var(--mute)}
+.gallery button{position:absolute;top:4px;right:4px;padding:0 7px;border-radius:99px;background:#000a}
+.bigstub{max-width:100%;max-height:420px;border-radius:8px;display:block;margin:12px auto}
+.ac{position:absolute;left:0;right:0;top:100%;margin-top:2px;background:var(--panel);border:1px solid var(--line);border-radius:8px;z-index:10;max-height:230px;overflow:auto;box-shadow:0 8px 24px #000a}
+.ac div{padding:7px 11px;cursor:pointer;color:var(--ink);font-size:14px}
+.ac div.on,.ac div:hover{background:var(--accent);color:#fff}
+.empty{color:var(--mute);text-align:center;padding:80px 0}
+.sec{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:20px 0 0}
+@media(max-width:600px){header,main{padding-left:14px;padding-right:14px}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Event <span>Archive</span></h1>
+  <input id="q" type="search" placeholder="Search event, artist, venue, city, person, year, notes…" autofocus>
+  <select id="kind"><option value="">All types</option><option>concert</option><option>festival</option><option>comedy</option><option>theatre</option><option>sports</option><option value="kids">kids</option><option>other</option></select>
+  <select id="status"><option value="">Any status</option><option value="review">Needs review</option><option value="confirmed">Confirmed</option></select>
+  <select id="person"><option value="">Anyone</option></select>
+  <button class="primary" id="add">+ Add event</button>
+  <div id="stats"></div>
+</header>
+<main id="main"></main>
+
+<dialog id="view"><div class="dlg" id="viewBody"></div></dialog>
+
+<dialog id="edit"><form class="dlg" id="form" method="dialog">
+  <h3 id="formTitle">Add event</h3>
+  <div class="row">
+    <label>Artist / headliner *<input name="artist" required></label>
+    <label>Date *<input name="date" type="date" required></label>
+    <label>Supporting acts<input name="supporting"></label>
+    <label>Type<select name="kind"><option>concert</option><option>festival</option><option>comedy</option><option>theatre</option><option>sports</option><option value="kids">kids</option><option>other</option></select></label>
+    <label>Venue<input name="venue"></label>
+    <label>City<input name="city"></label>
+    <label>Section / seat<input name="section"></label>
+    <label>Price<input name="price"></label>
+  </div>
+  <label class="full" style="position:relative">Who was there (comma separated)<input name="people" autocomplete="off"><div class="ac" id="ac" hidden></div></label>
+  <label class="full">Notes<textarea name="notes" rows="3"></textarea></label>
+  <label class="full">Ticket stub photo (optional)<input name="stub" type="file" accept="image/*,.pdf"></label>
+  <div class="actions"><button type="button" id="cancel">Cancel</button><button class="primary">Save</button></div>
+</form></dialog>
+
+<script>
+const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let all=[], editing=null, peopleNames=[];
+const MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const api=(u,o)=>fetch(u,o).then(r=>{if(!r.ok)throw new Error(r.statusText);return r.json()});
+
+async function load(){
+  all=(await api('/api/concerts')).filter(c=>c.kind!=='archived');
+  const names=[...new Set(all.flatMap(c=>c.people.map(p=>p.name)))].sort();
+  const sel=$('#person'), cur=sel.value;
+  sel.innerHTML='<option value="">Anyone</option>'+names.map(n=>`<option>${esc(n)}</option>`).join(''); sel.value=cur;
+  peopleNames=await api('/api/people');
+  render();
+}
+function stubHTML(c){
+  const img=c.media.find(m=>m.kind==='stub'&&!/\.pdf$/i.test(m.path));
+  if(img) return `<img class="stubimg" src="/media/${esc(img.path)}" alt="Ticket stub">`;
+  const [y,m,d]=c.date.split('-');
+  return `<div class="stub k-${esc(c.kind)}"><div class="body">
+    <div class="artist">${esc(c.artist)}</div>
+    ${c.supporting?`<div class="support">w/ ${esc(c.supporting)}</div>`:''}
+    <div class="venue">${esc(c.venue)||'&nbsp;'}</div>
+    <div class="meta">${esc(c.city)}${c.section?' · '+esc(c.section):''}${c.price?' · '+esc(c.price):''}</div>
+  </div><div class="tear"><div>${MON[+m-1]||''}</div><div class="day">${d||''}</div><div>${y}</div><div class="bar"></div></div></div>`;
+}
+function render(){
+  const terms=$('#q').value.toLowerCase().split(/\s+/).filter(Boolean), k=$('#kind').value, p=$('#person').value, st=$('#status').value;
+  const list=all.filter(c=>{
+    if(k&&c.kind!==k)return false;
+    if(st&&c.status!==st)return false;
+    if(p&&!c.people.some(x=>x.name===p))return false;
+    const hay=[c.artist,c.supporting,c.venue,c.city,c.date,c.notes,c.kind,...c.people.map(x=>x.name)].join(' ').toLowerCase();
+    return terms.every(t=>hay.includes(t));
+  });
+  $('#stats').textContent=`${list.length} of ${all.length} events · ${new Set(list.map(c=>c.artist.toLowerCase())).size} artists · ${new Set(list.map(c=>c.venue.toLowerCase()).filter(Boolean)).size} venues`;
+  if(!list.length){$('#main').innerHTML=`<div class="empty">${all.length?'Nothing matches.':'No events yet — add your first one.'}</div>`;return}
+  const years={}; list.forEach(c=>(years[c.date.slice(0,4)]??=[]).push(c));
+  $('#main').innerHTML=Object.keys(years).sort().reverse().map(y=>`<h2 class="year">${y}<small>${years[y].length} event${years[y].length>1?'s':''}</small></h2><div class="grid">`+
+    years[y].map(c=>`<div class="card" data-id="${c.id}">${stubHTML(c)}<div class="under">
+      ${c.status==='review'?'<span class="review">review</span>':''}${c.people.map(x=>`<span class="chip">${esc(x.name)}</span>`).join('')}
+      <span class="thumbs">${c.media.filter(m=>m.kind==='photo').slice(0,4).map(m=>`<img src="/media/${esc(m.path)}" loading="lazy">`).join('')}</span></div></div>`).join('')+'</div>').join('');
+}
+function show(c){
+  const stub=c.media.find(m=>m.kind==='stub'), photos=c.media.filter(m=>m.kind==='photo'), mail=c.media.find(m=>m.kind==='email');
+  $('#viewBody').innerHTML=`<h3>${esc(c.artist)}</h3>
+   <div style="color:var(--mute)">${new Date(c.date+'T12:00').toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'})}${c.venue?' · '+esc(c.venue):''}${c.city?', '+esc(c.city):''}</div>
+   ${c.supporting?`<div>with ${esc(c.supporting)}</div>`:''}
+   <div class="sec">Ticket</div>
+   ${stub?(/\.pdf$/i.test(stub.path)?`<p><a href="/media/${esc(stub.path)}" target="_blank" style="color:var(--accent)">Open ticket PDF</a></p>`:`<img class="bigstub" src="/media/${esc(stub.path)}">`):`<div style="max-width:420px;margin:12px auto">${stubHTML(c)}</div>`}
+   ${mail?`<details ${stub?'':'open'}><summary style="cursor:pointer;color:var(--accent)">Original email receipt</summary><iframe class="receipt" sandbox data-src="/media/${esc(mail.path)}"></iframe></details>`:''}
+   <div class="sec">Who was there</div>
+   <div class="under">${c.people.map(x=>`<span class="chip" title="from ${esc(x.source)}">${esc(x.name)}</span>`).join('')||'—'}</div>
+   ${c.notes?`<div class="sec">Notes</div><p style="white-space:pre-wrap">${esc(c.notes)}</p>`:''}
+   <div class="sec">Photos</div>
+   <div class="gallery">${photos.map(m=>`<figure><img src="/media/${esc(m.path)}" loading="lazy"><button data-rm="${m.id}" title="Remove from this event">×</button><figcaption>${esc(m.caption)}</figcaption></figure>`).join('')||'<span style="color:var(--mute)">None yet</span>'}</div>
+   <div class="actions">
+     <label style="margin-right:auto"><input type="file" id="upStub" accept="image/*,.pdf" hidden><span class="chip" style="cursor:pointer;padding:7px 12px">Upload ticket stub</span></label>
+     <label><input type="file" id="upPhoto" accept="image/*" multiple hidden><span class="chip" style="cursor:pointer;padding:7px 12px">Add photos</span></label>
+     ${c.status==='review'?'<button id="vOk">✓ I was there</button><button id="vNo">Not an event / didn\'t go</button>':''}<button id="vEdit">Edit</button><button id="vClose" class="primary">Close</button></div>`;
+  const fr=$('#viewBody iframe.receipt'); if(fr)fetch(fr.dataset.src).then(r=>r.text()).then(t=>fr.srcdoc=t);
+  $('#vClose').onclick=()=>$('#view').close();
+  const setc=async b=>{await api('/api/concerts/'+c.id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});await load();$('#view').close()};
+  if($('#vOk')){$('#vOk').onclick=()=>setc({status:'confirmed'});$('#vNo').onclick=()=>setc({kind:'archived'})}
+  $('#vEdit').onclick=()=>{$('#view').close();openForm(c)};
+  const up=kind=>async e=>{let r=c;for(const f of e.target.files){const fd=new FormData();fd.append('file',f);fd.append('kind',kind);r=await api(`/api/concerts/${c.id}/media`,{method:'POST',body:fd})}await load();show(r)};
+  $('#upStub').onchange=up('stub'); $('#upPhoto').onchange=up('photo');
+  $('#viewBody').querySelectorAll('[data-rm]').forEach(b=>b.onclick=async()=>{await api('/api/media/'+b.dataset.rm,{method:'DELETE'});await load();show(all.find(x=>x.id===c.id))});
+  if(!$('#view').open)$('#view').showModal();
+}
+function openForm(c){
+  editing=c||null; const f=$('#form'); f.reset();
+  $('#formTitle').textContent=c?'Edit event':'Add event';
+  if(c){for(const k of ['artist','date','supporting','kind','venue','city','section','price','notes'])f[k].value=c[k]||'';f.people.value=c.people.map(p=>p.name).join(', ')}
+  else f.date.value=new Date().toISOString().slice(0,10);
+  $('#edit').showModal();
+}
+$('#form').onsubmit=async e=>{
+  e.preventDefault(); const f=e.target, body={};
+  for(const k of ['artist','date','supporting','kind','venue','city','section','price','notes'])body[k]=f[k].value.trim();
+  if(editing)body.status='confirmed';
+  body.people=f.people.value.split(',');
+  let c=await api(editing?`/api/concerts/${editing.id}`:'/api/concerts',{method:editing?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(f.stub.files[0]){const fd=new FormData();fd.append('file',f.stub.files[0]);fd.append('kind','stub');c=await api(`/api/concerts/${c.id}/media`,{method:'POST',body:fd})}
+  $('#edit').close(); await load();
+};
+// People autocomplete: suggests for the name being typed, wherever it sits in the comma list.
+const pin=$('#form').people, ac=$('#ac'); let acI=-1, acM=[], acR=[0,0];
+function acUpdate(){
+  const v=pin.value, pos=pin.selectionStart??v.length, s=v.lastIndexOf(',',pos-1)+1, ec=v.indexOf(',',pos), e=ec<0?v.length:ec;
+  const term=v.slice(s,e).trim().toLowerCase(), taken=(v.slice(0,s)+','+v.slice(e)).split(',').map(x=>x.trim().toLowerCase());
+  acM=term?peopleNames.filter(n=>n.toLowerCase().includes(term)&&!taken.includes(n.toLowerCase()))
+    .sort((a,b)=>a.toLowerCase().startsWith(term)===b.toLowerCase().startsWith(term)?0:a.toLowerCase().startsWith(term)?-1:1).slice(0,8):[];
+  acR=[s,e]; if(acI>=acM.length)acI=-1;
+  ac.innerHTML=acM.map((n,i)=>`<div data-n="${esc(n)}" class="${i===acI?'on':''}">${esc(n)}</div>`).join(''); ac.hidden=!acM.length;
+}
+function acPick(n){
+  const v=pin.value, before=v.slice(0,acR[0]).trimEnd(), after=v.slice(acR[1]).replace(/^[,\s]*/,''), head=(before?before+' ':'')+n+', ';
+  pin.value=head+after; ac.hidden=true; acI=-1; pin.focus(); pin.setSelectionRange(head.length,head.length);
+}
+pin.oninput=()=>{acI=-1;acUpdate()};
+pin.onkeydown=e=>{
+  if(ac.hidden)return;
+  if(e.key==='ArrowDown'){e.preventDefault();acI=(acI+1)%acM.length;acUpdate()}
+  else if(e.key==='ArrowUp'){e.preventDefault();acI=(acI-1+acM.length)%acM.length;acUpdate()}
+  else if(e.key==='Enter'||(e.key==='Tab'&&acI>=0)){e.preventDefault();acPick(acM[Math.max(acI,0)])}
+  else if(e.key==='Escape'){e.preventDefault();ac.hidden=true}
+};
+ac.onmousedown=e=>{const d=e.target.closest('[data-n]');if(d){e.preventDefault();acPick(d.dataset.n)}};
+pin.onblur=()=>setTimeout(()=>ac.hidden=true,150);
+$('#cancel').onclick=()=>$('#edit').close();
+$('#add').onclick=()=>openForm();
+$('#q').oninput=$('#status').onchange=$('#kind').onchange=$('#person').onchange=render;
+$('#main').onclick=e=>{const el=e.target.closest('.card');if(el)show(all.find(c=>c.id==el.dataset.id))};
+load();
+</script>
+</body>
+</html>

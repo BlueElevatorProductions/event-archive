@@ -1,0 +1,17 @@
+{
+  "owner": "Your Full Name",
+  "about": "Lives in City, ST (earlier Other City). Children: FirstName and FirstName.",
+  "self_names": ["your full name", "your first name"],
+  "aliases": {
+    "sam": "Sam Example",
+    "samantha example": "Sam Example"
+  },
+  "not_people": ["ticketmaster", "stubhub", "seatgeek"],
+  "calendars": {
+    "personal": ["Home", "Family"],
+    "work": ["Work"],
+    "work_prefixes": [],
+    "shared_with": {"Name of a calendar you share with someone": "That Person's Name"}
+  },
+  "openrouter_key_ref": ""
+}
